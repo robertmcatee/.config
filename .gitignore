@@ -1,0 +1,9 @@
+QtProject.conf
+/chromium/
+/freerdp/
+/menus/
+/pulse/
+/xfce4/
+/dconf/
+/gtk-3.0/
+/remmina/
