@@ -8,43 +8,48 @@
 
 general {
         output_format = "i3bar"
+        interval = 1
         colors = true
-        interval = 5
+        color_good = '#88b090'
+        color_degraded ='#ccdc90'
+        color_bad = '#e89393'
 }
 
-order += "ipv6"
-order += "disk /"
-order += "disk /home"
-order += "run_watch DHCP"
-order += "run_watch VPNC"
-order += "path_exists VPN"
+# order += "disk /"
+# order += "disk /home"
+# order += "ipv6"
+# order += "run_watch DHCP"
+# order += "run_watch VPNC"
+# order += "path_exists VPN"
 order += "wireless wlp2s0"
-order += "ethernet enp1s0"
+# order += "ethernet enp1s0"
 order += "volume master"
 order += "battery 0"
-order += "cpu_temperature 0"
-order += "memory"
-order += "load"
+# order += "cpu_temperature 0"
+# order += "memory"
+# order += "load"
 order += "tztime local"
 # order += "tztime berlin"
 
 wireless wlp2s0 {
-        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_down = "W: down"
+#        format_up = "W: (%quality at %essid, %bitrate) %ip"
+        format_up = "%essid )))"
+        format_down = "down )))"
 }
 
 ethernet enp1s0 {
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
+#        format_up = "E: %ip (%speed)"
+        format_up = "up ="
+        format_down = "down ="
 }
 
 battery 0 {
-        format = "%status %percentage %remaining %emptytime"
+        format = "%status %percentage (%remaining) (%emptytime)"
         format_down = "No battery"
-        status_chr = "⚡ CHR"
-        status_bat = "🔋 BAT"
-        status_unk = "? UNK"
-        status_full = "☻ FULL"
+        status_chr = "+ Charging"
+        status_bat = "~ Battery"
+        status_unk = "? Unknown"
+        status_full = "☻ Charged"
         path = "/sys/class/power_supply/BAT%d/uevent"
         low_threshold = 10
 }
@@ -101,8 +106,8 @@ read_file uptime {
 }
 
 volume master {
-        format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
+        format = "♪ %volume"
+        format_muted = "♪ muted (%volume)"
         device = "pulse:1"
 	# this device name is wrong
 }
