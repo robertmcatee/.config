@@ -17,11 +17,21 @@ font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Liberation Mono 8
+font pango:Liberation Mono 9
 
 # Set inner/outer gaps
 gaps inner 10
 gaps outer 15
+for_window [class="^.*"] border pixel 1
+
+# Mouse - I hate the middle mouse button paste feature, disabling
+exec xmodmap -e “pointer = 1 25 3 4 5 6 7 8 9”
+
+# Screen brightness controls
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20; # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20; # decrease screen brightness
+bindsym XF86MonBrightnessDown exec sudo light -U 5
+bindsym XF86MonBrightnessUp exec sudo light -A 5
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -221,6 +231,7 @@ bar {
     position top
     status_command i3status
     separator_symbol ":"
+    # tray_output primary
 
     colors {
         background          $bg

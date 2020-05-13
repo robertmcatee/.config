@@ -7,3 +7,7 @@ QtProject.conf
 /dconf/
 /gtk-3.0/
 /remmina/
+/GIMP/
+/gtk-2.0/
+pavucontrol.ini
+/volumeicon/

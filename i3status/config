@@ -21,20 +21,21 @@ general {
 # order += "run_watch DHCP"
 # order += "run_watch VPNC"
 # order += "path_exists VPN"
-order += "wireless wlp2s0"
 # order += "ethernet enp1s0"
-order += "volume master"
-order += "battery 0"
 # order += "cpu_temperature 0"
 # order += "memory"
 # order += "load"
-order += "tztime local"
 # order += "tztime berlin"
+
+order += "tztime local"
+order += "battery 0"
+order += "volume master"
+order += "wireless wlp2s0"
 
 wireless wlp2s0 {
 #        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_up = "%essid )))"
-        format_down = "down )))"
+        format_up = ") %essid"
+        format_down = ") down"
 }
 
 ethernet enp1s0 {
@@ -108,6 +109,5 @@ read_file uptime {
 volume master {
         format = "♪ %volume"
         format_muted = "♪ muted (%volume)"
-        device = "pulse:1"
-	# this device name is wrong
+        device = "pulse:0"
 }
