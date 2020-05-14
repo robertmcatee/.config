@@ -206,6 +206,7 @@ workspace 7 output HDMI-1
 workspace 8 output HDMI-1
 workspace 9 output HDMI-1
 workspace 10 output eDP-1
+exec --no-startup-id xrandr --output HDMI-1 --auto --left-of eDP-1
 
 # color defines for zenburn styled i3
 set $bg     #2c2c2e
