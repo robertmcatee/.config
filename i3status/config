@@ -27,15 +27,15 @@ general {
 # order += "load"
 # order += "tztime berlin"
 
-order += "tztime local"
 order += "battery 0"
-order += "volume master"
 order += "wireless wlp2s0"
+order += "volume master"
+order += "tztime local"
 
 wireless wlp2s0 {
 #        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_up = ") %essid"
-        format_down = ") down"
+        format_up = "Connected %essid"
+        format_down = "Disconnected"
 }
 
 ethernet enp1s0 {
@@ -45,12 +45,13 @@ ethernet enp1s0 {
 }
 
 battery 0 {
-        format = "%status %percentage (%remaining) (%emptytime)"
+#        format = "%status %percentage (%remaining) (%emptytime)"
+        format = "%status %percentage"
         format_down = "No battery"
-        status_chr = "+ Charging"
-        status_bat = "~ Battery"
-        status_unk = "? Unknown"
-        status_full = "☻ Charged"
+        status_chr = "Charging"
+        status_bat = "Discharging"
+        status_unk = "Unknown"
+        status_full = "Charged"
         path = "/sys/class/power_supply/BAT%d/uevent"
         low_threshold = 10
 }
@@ -107,7 +108,7 @@ read_file uptime {
 }
 
 volume master {
-        format = "♪ %volume"
-        format_muted = "♪ muted (%volume)"
+        format = "Volume %volume"
+        format_muted = "Volume Muted (%volume)"
         device = "pulse:0"
 }
