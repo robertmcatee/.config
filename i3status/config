@@ -20,33 +20,34 @@ general {
 # order += "ipv6"
 # order += "run_watch DHCP"
 # order += "run_watch VPNC"
-# order += "path_exists VPN"
-# order += "ethernet enp1s0"
 # order += "cpu_temperature 0"
 # order += "memory"
 # order += "load"
 # order += "tztime berlin"
 
 order += "battery 0"
+order += "path_exists VPN"
+order += "ethernet enp1s0"
 order += "wireless wlp2s0"
 order += "volume master"
 order += "tztime local"
 
 wireless wlp2s0 {
-#        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_up = "Connected %essid"
-        format_down = "Disconnected"
+        format_up = "Wireless: %ip on %essid at%quality"
+#	 format_up = "Wireless:%quality at %essid %bitrate %ip"
+#        format_up = "Wireless: %essid"
+        format_down = "Wireless: Disconnected"
 }
 
 ethernet enp1s0 {
 #        format_up = "E: %ip (%speed)"
-        format_up = "up ="
-        format_down = "down ="
+        format_up = "Ethernet: %ip"
+        format_down = "Ethernet: Disconnected"
 }
 
 battery 0 {
-#        format = "%status %percentage (%remaining) (%emptytime)"
-        format = "%status %percentage"
+        format = "%status %percentage %remaining %emptytime"
+#        format = "%status: %percentage"
         format_down = "No battery"
         status_chr = "Charging"
         status_bat = "Discharging"
@@ -67,7 +68,8 @@ run_watch VPNC {
 
 path_exists VPN {
         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
-        path = "/proc/sys/net/ipv4/conf/tun0"
+        path = "/proc/sys/net/ipv4/conf/vpn0"
+        format_down = ""
 }
 
 tztime local {
@@ -108,7 +110,7 @@ read_file uptime {
 }
 
 volume master {
-        format = "Volume %volume"
-        format_muted = "Volume Muted (%volume)"
+        format = "Volume: %volume"
+        format_muted = "Volume: Muted (%volume)"
         device = "pulse:0"
 }

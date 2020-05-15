@@ -31,6 +31,7 @@ for_window [class="^.*"] border pixel 1
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec xbacklight -inc 20; # increase screen brightness
 # bindsym XF86MonBrightnessDown exec xbacklight -dec 20; # decrease screen brightness
+# had to add to sudoers robertmcatee ALL=(root) NOPASSWD: /user/bin/light
 bindsym XF86MonBrightnessDown exec sudo light -U 5
 bindsym XF86MonBrightnessUp exec sudo light -A 5
 
@@ -232,7 +233,7 @@ client.urgent               $rd        $rd         $tx
 bar {
     position top
     status_command i3status
-    separator_symbol ":"
+    separator_symbol "/"
 #    tray_output primary
     tray_padding 5
 
