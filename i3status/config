@@ -7,13 +7,25 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
-        output_format = "i3bar"
-        interval = 1
-        colors = true
-        color_good = '#88b090'
-        color_degraded ='#ccdc90'
-        color_bad = '#e89393'
+    output_format = "i3bar"
+    markup = pango
+    interval = 1
+    colors = true
+    color_good = "#FFCC00"
+    color_degraded = "#000000"
+    color_bad = "#000000"
 }
+
+order += "cpu_usage"
+#order += "load"
+order += "memory"
+order += "read_file Light"
+order += "battery 0"
+order += "read_file VPN"
+order += "ethernet enp1s0"
+order += "wireless wlp2s0"
+order += "volume master"
+order += "tztime local"
 
 # order += "disk /"
 # order += "disk /home"
@@ -21,96 +33,109 @@ general {
 # order += "run_watch DHCP"
 # order += "run_watch VPNC"
 # order += "cpu_temperature 0"
-# order += "memory"
-# order += "load"
 # order += "tztime berlin"
 
-order += "battery 0"
-order += "path_exists VPN"
-order += "ethernet enp1s0"
-order += "wireless wlp2s0"
-order += "volume master"
-order += "tztime local"
-
-wireless wlp2s0 {
-        format_up = "Wireless: %ip on %essid at%quality"
-#	 format_up = "Wireless:%quality at %essid %bitrate %ip"
-#        format_up = "Wireless: %essid"
-        format_down = "Wireless: Disconnected"
-}
-
-ethernet enp1s0 {
-#        format_up = "E: %ip (%speed)"
-        format_up = "Ethernet: %ip"
-        format_down = "Ethernet: Disconnected"
-}
-
-battery 0 {
-        format = "%status %percentage %remaining %emptytime"
-#        format = "%status: %percentage"
-        format_down = "No battery"
-        status_chr = "Charging"
-        status_bat = "Discharging"
-        status_unk = "Unknown"
-        status_full = "Charged"
-        path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 10
-}
-
-run_watch DHCP {
-        pidfile = "/var/run/dhclient*.pid"
-}
-
-run_watch VPNC {
-        # file containing the PID of a vpnc process
-        pidfile = "/var/run/vpnc/pid"
-}
-
-path_exists VPN {
-        # path exists when a VPN tunnel launched by nmcli/nm-applet is active
-        path = "/proc/sys/net/ipv4/conf/vpn0"
-        format_down = ""
-}
-
-tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
-        #hide_if_equals_localtime = true
-}
-
-tztime berlin {
-        format = "%Y-%m-%d %H:%M:%S %Z"
-        timezone = "Europe/Berlin"
+cpu_usage {
+    format = "CPU %usage"
+    #format = "CPU %usage {%cpu0 %cpu1}"
+    max_threshold = 75
 }
 
 load {
-        format = "Load %1min"
-}
-
-cpu_temperature 0 {
-        format = "Temp: %degrees °C"
-        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input"
+    format = "Load %1min"
 }
 
 memory {
-        format = "RAM %used;%available"
-        threshold_degraded = "1G"
-        format_degraded = "MEMORY < %available"
+    format = "RAM %percentage_used"
+    #%used:%total"
+    threshold_degraded = "1G"
+    format_degraded = "MEMORY < %available"
 }
 
-disk "/" {
-        format = "/ %avail"
+read_file Light {
+    path = /home/robertmcatee/.config/i3status/backlight
+    format = "%title %content%"
+    max_characters = 8
+    color_good = '#FFCC00'
 }
 
-disk "/home" {
-        format = "/home %avail"
+battery 0 {
+    format = "%status %percentage %remaining %emptytime"
+    #format = "%status: %percentage"
+    format_down = "No battery"
+    status_chr = "Charging"
+    status_bat = "Discharging"
+    status_unk = "Unknown"
+    status_full = "Charged"
+    path = "/sys/class/power_supply/BAT%d/uevent"
+    low_threshold = 10
 }
 
-read_file uptime {
-        path = "/proc/uptime"
+read_file VPN {
+    path = /sys/class/net/vpn0/operstate
+    format = "%title %content"
+    format_bad = "%title - %errno: %error"
+    max_characters = 8
+    color_good = '#000000'
+    format = "%title %content"
+    #format = "<span background='#FFFFFF'>%title %content</span>"
+    # Need to conditionally format down and up showing red until I figure it out.
+}
+
+ethernet enp1s0 {
+    #format_up = "Ethernet %ip (%speed)"
+    format_up = "LAN %speed %ip"
+    #format_down = ""
+    format_down = "LAN down"
+}
+
+wireless wlp2s0 {
+    format_up = "WLAN%quality %ip:%essid"
+    #format_up = "Wireless:%quality at %essid %bitrate %ip"
+    #format_up = "Wireless: %essid"
+    format_down = "WLAN down"
 }
 
 volume master {
-        format = "Volume: %volume"
-        format_muted = "Volume: Muted (%volume)"
-        device = "pulse:0"
+    format = "Volume %volume"
+    format_muted = "Volume %volume muted"
+    device = "pulse:0"
+}
+
+tztime local {
+    format = "%Y-%m-%d %H:%M:%S"
+    #hide_if_equals_localtime = true
+}
+
+# Unused
+
+run_watch DHCP {
+    pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPNC {
+    #file containing the PID of a vpnc process
+    pidfile = "/var/run/vpnc/pid"
+}
+
+tztime berlin {
+    format = "%Y-%m-%d %H:%M:%S %Z"
+    timezone = "Europe/Berlin"
+}
+
+cpu_temperature 0 {
+    format = "Temp: %degrees °C"
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input"
+}
+
+disk "/" {
+    format = "/ %avail"
+}
+
+disk "/home" {
+    format = "/home %avail"
+}
+
+read_file uptime {
+    path = "/proc/uptime"
 }

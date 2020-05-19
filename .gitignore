@@ -11,3 +11,6 @@ QtProject.conf
 /gtk-2.0/
 pavucontrol.ini
 /volumeicon/
+/Code/
+mimeapps.list
+i3status/backlight
