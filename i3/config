@@ -27,7 +27,7 @@ for_window [class="^.*"] border pixel 1
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec xbacklight -inc 20; # increase screen brightness
 # bindsym XF86MonBrightnessDown exec xbacklight -dec 20; # decrease screen brightness
-# had to add to sudoers robertmcatee ALL=(root) NOPASSWD: /user/bin/light
+# had to add to sudoers robertmcatee ALL=(root) NOPASSWD: /usr/bin/light
 bindsym XF86MonBrightnessDown exec sudo light -U 5 && light > ~/.config/i3status/backlight && $refresh_i3status
 bindsym XF86MonBrightnessUp exec sudo light -A 5 && light > ~/.config/i3status/backlight && $refresh_i3status
 
@@ -203,11 +203,16 @@ exec --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
 
 # My custom colors. Based on achievements
 
+set $black #16161D
+set $red   #B21B1B
+set $gold  #FFCC00
+set $white #FFFFFF
+
 # class                 border  bground text    indicator child_border
-client.focused          #FFCC00 #FFCC00 #B21B1B #E5B700   #E5B700
-client.focused_inactive #B21B1B #B21B1B #FFCC00 #B21B1B   #B21B1B
-client.unfocused        #B21B1B #B21B1B #FFCC00 #B21B1B   #B21B1B
-client.urgent           #FFFFFF #FFFFFF #B21B1B #FFFFFF   #FFFFFF
+client.focused          $gold   $black  $gold   $gold     $gold
+client.focused_inactive $red    $black  $red    $red      $red
+client.unfocused        $red    $black  $red    $red      $red
+client.urgent           $white  $black  $white  $white    $white
 client.placeholder      #555555 #555555 #FFFFFF #555555   #555555
 
 client.background       #FFFFFF
@@ -215,20 +220,20 @@ client.background       #FFFFFF
 bar {
     position top
     status_command i3status
-    separator_symbol "-"
+    separator_symbol "~"
     #tray_output primary
     tray_padding 5
     colors {
-        background #B21B1B
-        statusline #FFCC00
-        separator  #FFFFFF
+        background $black
+        statusline $red
+        separator  $gold
 
-        focused_workspace  #FFCC00 #FFCC00 #B21B1B
-        active_workspace   #B21B1B #B21B1B #FFCC00
-        inactive_workspace #B21B1B #B21B1B #FFCC00
-        urgent_workspace   #FFFFFF #FFFFFF #B21B1B
+        focused_workspace  $gold   $black  $gold
+        active_workspace   $white  $black  $white
+        inactive_workspace $black  $black  $red
+        urgent_workspace   $white  $white  $red
         binding_mode       #5F676A #5F676A #FFFFFF
   }
 }
 
-bindsym $mod+d exec "dmenu_run -b -nf '#FFCC00' -nb '#B21B1B' -sb '#FFCC00' -sf '#B21B1B' -fn 'Liberation Mono-9' -p 'dmenu>'"
+bindsym $mod+d exec "dmenu_run -b -nf '#B21B1B' -nb '#16161D' -sb '#16161D' -sf '#FFCC00' -fn 'Liberation Mono-9' -p 'dmenu>'"

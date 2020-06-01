@@ -11,9 +11,9 @@ general {
     markup = pango
     interval = 1
     colors = true
-    color_good = "#FFCC00"
-    color_degraded = "#000000"
-    color_bad = "#000000"
+    color_good = "#B21B1B"
+    color_degraded = "#FFCC00"
+    color_bad = "#FFCC00"
 }
 
 order += "cpu_usage"
@@ -23,7 +23,7 @@ order += "read_file Light"
 order += "battery 0"
 #order += "read_file VPN"
 order += "ethernet enp1s0"
-order += "wireless wlp2s0"
+order += "wireless wlo1"
 order += "volume master"
 order += "tztime local"
 
@@ -53,10 +53,10 @@ memory {
 }
 
 read_file Light {
-    path = /home/robertmcatee/.config/i3status/backlight
+    path = /home/robert/.config/i3status/backlight
     format = "%title %content%"
     max_characters = 8
-    color_good = '#FFCC00'
+    color_good = '#B21B1B'
 }
 
 battery 0 {
@@ -76,7 +76,7 @@ read_file VPN {
     format = "%title %content"
     format_bad = "%title - %errno: %error"
     max_characters = 8
-    color_good = '#000000'
+    color_good = '#00FF00'
     format = "%title %content"
     #format = "<span background='#FFFFFF'>%title %content</span>"
     # Need to conditionally format down and up showing red until I figure it out.
@@ -89,7 +89,7 @@ ethernet enp1s0 {
     format_down = "LAN down"
 }
 
-wireless wlp2s0 {
+wireless wlo1 {
     format_up = "WLAN%quality %ip:%essid"
     #format_up = "Wireless:%quality at %essid %bitrate %ip"
     #format_up = "Wireless: %essid"
