@@ -199,7 +199,8 @@ workspace 6 output HDMI-1
 workspace 7 output HDMI-1
 workspace 8 output HDMI-1
 workspace 9 output eDP-1
-exec --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
+# exec --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
+exec --no-startup-id xrandr --output eDP-1 --mode 1366x768 --pos 1920x312 --rotate normal --output DP-1 --off --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-2 --off --output HDMI-2 --off
 
 # My custom colors. Based on achievements
 
