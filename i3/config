@@ -190,7 +190,7 @@ bindsym $mod+r mode "resize"
 bindsym Print exec --no-startup-id xfce4-screenshooter
 
 # Multi-screen Settings
-workspace 1 output HDMI-1
+workspace 1 output eDP-1
 workspace 2 output HDMI-1
 workspace 3 output HDMI-1
 workspace 4 output HDMI-1
@@ -198,9 +198,9 @@ workspace 5 output HDMI-1
 workspace 6 output HDMI-1
 workspace 7 output HDMI-1
 workspace 8 output HDMI-1
-workspace 9 output eDP-1
-# exec --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
-exec --no-startup-id xrandr --output eDP-1 --mode 1366x768 --pos 1920x312 --rotate normal --output DP-1 --off --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-2 --off --output HDMI-2 --off
+workspace 9 output HDMI-1
+exec --no-startup-id xrandr --output HDMI-1 --auto --left-of eDP-1 --primary
+#exec --no-startup-id xrandr --output eDP-1 --mode 1366x768 --pos 1920x312 --rotate normal --output DP-1 --off --output HDMI-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-2 --off --output HDMI-2 --off
 
 # background with FEH
 exec --no-startup-id ~/.fehbg
@@ -225,7 +225,7 @@ bar {
     position top
     status_command i3status
     separator_symbol "~"
-    #tray_output primary
+    tray_output primary
     tray_padding 5
     colors {
         background $black
