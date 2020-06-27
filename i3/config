@@ -9,6 +9,17 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# Current xmodmap
+# xmodmap -e 'add mod3 = Scroll_Lock'
+# shift       Shift_L (0x32),  Shift_R (0x3e)
+# lock        Caps_Lock (0x42)
+# control     Control_L (0x25),  Control_R (0x69)
+# mod1        Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)
+# mod2        Num_Lock (0x4d)
+# mod3        Scroll_Lock (0x4e)
+# mod4        Super_L (0x85),  Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
+# mod5        ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -20,6 +31,9 @@ gaps inner 7
 gaps outer 3
 for_window [class="^.*"] border pixel 1
 
+# Chrome
+bindsym $mod+F1 exec chromium
+
 # Mouse - I hate the middle mouse button paste feature
 # I created a xmodmap file and included in xinitrc
 # pointer = 1 25 3 4 5 6 7 8 9
@@ -29,7 +43,10 @@ for_window [class="^.*"] border pixel 1
 # bindsym XF86MonBrightnessDown exec xbacklight -dec 20; # decrease screen brightness
 # had to add to sudoers robertmcatee ALL=(root) NOPASSWD: /usr/bin/light
 bindsym XF86MonBrightnessDown exec sudo light -U 5 && light > ~/.config/i3status/backlight && $refresh_i3status
+bindsym $mod+F2 exec sudo light -U 5 && light > ~/.config/i3status/backlight && $refresh_i3status
+
 bindsym XF86MonBrightnessUp exec sudo light -A 5 && light > ~/.config/i3status/backlight && $refresh_i3status
+bindsym $mod+F3 exec sudo light -A 5 && light > ~/.config/i3status/backlight && $refresh_i3status
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -39,7 +56,9 @@ bindsym XF86MonBrightnessUp exec sudo light -A 5 && light > ~/.config/i3status/b
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c B31B1B --nofork
 
 # My Lockscreen settings
-bindsym $mod+z exec --no-startup-id i3lock -c B31B1B
+bindsym $mod+Pause exec --no-startup-id i3lock -c B31B1B
+bindsym $mod+Delete exec --no-startup-id i3lock -c B31B1B
+# bindsym Control+Mod1+Delete exec --no-startup-id i3lock -c B31B1B
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -53,10 +72,18 @@ exec --no-startup-id volumeicon
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
+## Raise
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym $mod+F8 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+## Lower
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym $mod+F7 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+## Mute
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym $mod+F6 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+## Mute Mic
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym $mod+F5 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
